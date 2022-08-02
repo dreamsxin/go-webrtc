@@ -42,6 +42,8 @@ type Client struct {
 
 	// Buffered channel of outbound messages.
 	send chan Message
+
+    auth Auth
 }
 
 // readPump pumps messages from the websocket connection to the hub.
@@ -62,7 +64,7 @@ func (c *Client) readPump() {
         err  := c.conn.ReadJSON(&message)
 		//_, message, err := c.conn.ReadMessage()
 		if err != nil {
-			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+			if !websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				log.Printf("error: %v", err)
 			}
 			break

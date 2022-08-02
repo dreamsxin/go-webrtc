@@ -6,6 +6,7 @@ import (
 )
 
 type Message struct {
+    Date    string  `json:"date,omitempty"`
     Type    string  `json:"type,omitempty"`
     From    string  `json:"from,omitempty"`
     To      string  `json:"to,omitempty"`
@@ -21,4 +22,9 @@ func (m Message) String() string {
     }
 
     return string(data)
+}
+
+type Auth struct {
+    Status  string
+    Name    string
 }
