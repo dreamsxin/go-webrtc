@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<video id="video1" autoplay playsinline></video>
+
+<script>
+    let constraints = {
+        audio: true,
+        video: true
+    }
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(mediaStream => {
+            console.log(mediaStream)
+            let video1 = document.getElementById('video1')
+            console.log(video1)
+            video1.srcObject = mediaStream;
+
+            for (let track of mediaStream.getTracks()) {
+                console.log(track)
+            }
+            // 在执行 navigator.mediaDevices.enumerateDevices() 方法前先执行以下代码：navigator.mediaDevices.getUserMedia({audio: true, video: true}) 从浏览器获得许可，否则会拿不到设备信息
+            navigator.mediaDevices.enumerateDevices()
+                .then(mediaDeviceInfos => {
+                    console.log(mediaDeviceInfos)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+</script>
+</body>
+</html>
